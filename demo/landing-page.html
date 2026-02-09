@@ -84,6 +84,66 @@
             box-shadow: 0 8px 30px rgba(0, 212, 255, 0.4);
         }
         
+        /* Email Capture Section */
+        .email-capture {
+            background: rgba(0, 212, 255, 0.05);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+        
+        .email-capture h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .email-capture p {
+            color: #aaa;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+        
+        .email-form {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .email-form input {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 16px;
+        }
+        
+        .email-form input::placeholder {
+            color: #666;
+        }
+        
+        .email-form button {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2cbf 100%);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .email-form button:hover {
+            transform: scale(1.05);
+        }
+        
         .benefits {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -226,6 +286,20 @@
             margin-bottom: 20px;
         }
         
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
         @media (max-width: 600px) {
             .hero h1 {
                 font-size: 28px;
@@ -234,6 +308,14 @@
             .contact-options {
                 flex-direction: column;
                 align-items: center;
+            }
+            
+            .email-form {
+                flex-direction: column;
+            }
+            
+            .email-form input {
+                min-width: 100%;
             }
         }
     </style>
@@ -249,7 +331,26 @@
             <div class="badge">🚀 Exclusive Listing Opportunity</div>
             <h1>Grow Your Project with Solcex</h1>
             <p>Join the fastest-growing crypto exchange and reach millions of traders worldwide. We partner with innovative projects to provide liquidity, exposure, and growth.</p>
-            <a href="#contact" class="cta-button">Get Listed Today</a>
+            <a href="#email-capture" class="cta-button">Get Listed Today</a>
+        </section>
+        
+        <!-- Email Capture Section -->
+        <section class="email-capture" id="email-capture">
+            <h2>📧 Get Your Free Listing Guide</h2>
+            <p>Enter your email and receive our exclusive "Crypto Exchange Listing Playbook" + fast-track application review</p>
+            
+            <form class="email-form" onsubmit="handleEmailSubmit(event)">
+                <input type="email" id="emailInput" placeholder="your@email.com" required>
+                <button type="submit">Get Free Guide →</button>
+            </form>
+            
+            <div class="success-message" id="successMessage">
+                ✅ <strong>Thank you!</strong> Check your inbox for the Listing Guide. Our team will contact you within 24 hours.
+            </div>
+            
+            <p style="margin-top: 15px; font-size: 13px; color: #666;">
+                🔒 We respect your privacy. No spam, unsubscribe anytime.
+            </p>
         </section>
         
         <section class="benefits">
@@ -315,5 +416,29 @@
             <p style="margin-top: 10px; font-size: 12px;">solcex.cc | Building the future of crypto trading</p>
         </footer>
     </div>
+    
+    <script>
+        function handleEmailSubmit(event) {
+            event.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            
+            // Store email (in real implementation, send to server)
+            localStorage.setItem('solcex_lead_email', email);
+            localStorage.setItem('solcex_lead_time', new Date().toISOString());
+            
+            // Show success message
+            document.getElementById('successMessage').classList.add('show');
+            document.getElementById('emailInput').value = '';
+            
+            // Track conversion (you can add analytics here)
+            console.log('Email captured:', email);
+            
+            // Optional: Send to your email service
+            // fetch('YOUR_API_ENDPOINT', {
+            //     method: 'POST',
+            //     body: JSON.stringify({ email: email, source: 'landing_page' })
+            // });
+        }
+    </script>
 </body>
 </html>

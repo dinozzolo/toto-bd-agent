@@ -4,6 +4,7 @@ import { dbQueries } from './database.js';
 import db from './database.js';
 import nodemailer from 'nodemailer';
 import { generateContextualReply } from './reply-templates.js';
+import { ComplianceTracker } from './compliance.js';
 
 class OutreachEngine {
   constructor() {
@@ -151,6 +152,17 @@ class OutreachEngine {
     
     this.processing = true;
     
+    // X COMPLIANCE CHECK
+    if (!ComplianceTracker.canTweet()) {
+      const stats = ComplianceTracker.getStats();
+      console.log(`[Outreach] ⏸️  Compliance check failed: ${JSON.stringify(stats)}`);
+      this.processing = false;
+      return false;
+    }
+    
+    // Wait for minimum interval
+    await ComplianceTracker.waitForNextSlot();
+    
     // CRITICAL: Reload database and check for recent reply (prevents race conditions)
     // MUST wait 7 DAYS before re-contacting same project
     const db = (await import('./database.js')).default;
@@ -200,15 +212,25 @@ class OutreachEngine {
 
       await client.v2.reply(reply, lastTweet.id);
       
+      // X COMPLIANT: Record successful tweet
+      ComplianceTracker.recordTweet(reply);
+      
       // Log immediately after sending
       dbQueries.logOutreach.run(project.id, 'tweet_reply', reply, 'sent');
       console.log(`[Outreach] ✅ SUCCESS: Replied to @${project.twitter_username} about $${project.symbol}`);
       console.log(`[Outreach] 📝 Content: ${reply.substring(0, 80)}...`);
+      console.log(`[Outreach] 📊 Stats: ${JSON.stringify(ComplianceTracker.getStats())}`);
       
       this.processing = false;
       return true;
     } catch (error) {
       console.error(`[Outreach] ❌ Failed to reply to @${project.twitter_username}:`, error.message);
+      console.error(`[Outreach] ❌ Error code:`, error.code);
+      console.error(`[Outreach] ❌ Error data:`, JSON.stringify(error.data || {}, null, 2));
+      
+      // X COMPLIANT: Record failure
+      ComplianceTracker.recordFailure(error);
+      
       dbQueries.logOutreach.run(project.id, 'tweet_reply', '', 'failed');
       this.processing = false;
       return false;

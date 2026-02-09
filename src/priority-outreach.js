@@ -1,11 +1,13 @@
 // Priority outreach - replies to exchange listing projects first
+// X COMPLIANT: Max 100 tweets/day, 30 min minimum intervals
 import db from './database.js';
 import { client } from './twitter-client.js';
-import { config } from './config.js';
+import { ComplianceTracker } from './compliance.js';
 
 class PriorityOutreach {
   constructor() {
-    this.minInterval = 10 * 60 * 1000; // 10 minutes between replies
+    // X COMPLIANT: Minimum 30 minutes between tweets
+    this.minInterval = 30 * 60 * 1000;
   }
 
   // Get HIGH PRIORITY projects (exchange listings)
@@ -23,6 +25,7 @@ class PriorityOutreach {
     const prioritySources = ['exchange_listing'];
     
     // Get priority projects not contacted recently (filter out fake projects with 0 mcap)
+    // DELAYED LINK STRATEGY: Also check engagement stage
     const priorityProjects = db.projects
       .filter(p => 
         p.twitter_username && 
@@ -30,7 +33,8 @@ class PriorityOutreach {
         prioritySources.includes(p.source) &&
         p.mcap > 10000 &&
         !p.invalid_twitter &&
-        !p.no_recent_tweets
+        !p.no_recent_tweets &&
+        ComplianceTracker.shouldEngage(p.id)  // Check if we should engage per strategy
       )
       .sort((a, b) => {
         // Sort by follower count (higher first)
@@ -73,6 +77,16 @@ class PriorityOutreach {
 
   async processPriorityQueue() {
     console.log('[PriorityOutreach] 🎯 Checking for priority projects...');
+    
+    // X COMPLIANCE CHECK
+    if (!ComplianceTracker.canTweet()) {
+      const stats = ComplianceTracker.getStats();
+      console.log(`[PriorityOutreach] ⏸️  Compliance check failed: ${JSON.stringify(stats)}`);
+      return false;
+    }
+    
+    // Wait for minimum interval
+    await ComplianceTracker.waitForNextSlot();
     
     // Get up to 10 projects (check more to find ones with original tweets)
     let projects = this.getPriorityProjects(10);
@@ -168,15 +182,23 @@ class PriorityOutreach {
       
       // Reply to last tweet regardless of age (saves API calls)
       
-      // Generate reply
-      const reply = this.generateReply(project);
+      // DELAYED LINK STRATEGY: Get message based on engagement stage
+      const engagement = ComplianceTracker.getProjectEngagement(project.id);
+      const reply = ComplianceTracker.getStageMessage(project, engagement);
+      
+      if (!reply) {
+        console.log(`[PriorityOutreach] ⏭️  Skipping ${project.symbol} - pitch already sent`);
+        return false;
+      }
       
       // Send reply
       const response = await client.v2.reply(reply, lastTweet.id);
       
-      // DM DISABLED - X Support confirmed: "DM endpoints require permissions beyond pay-per-use Basic tier"
-      // 403 error = insufficient access. DMs not possible on current tier.
-      // Recommendation from X Support: "Disable DMs; stick to working replies"
+      // X COMPLIANT: Record successful tweet
+      ComplianceTracker.recordTweet(reply);
+      
+      // DELAYED LINK STRATEGY: Record this interaction
+      ComplianceTracker.recordInteraction(project.id, reply, 'reply');
       
       // Log outreach
       db.outreach.push({
@@ -187,31 +209,44 @@ class PriorityOutreach {
         tweet_id: response.data.id,
         status: 'sent',
         priority: true,
-        sent_at: new Date().toISOString()
+        sent_at: new Date().toISOString(),
+        stage: engagement.stage
       });
       
       // Save
       const { saveDb } = await import('./database.js');
       saveDb();
       
-      console.log(`[PriorityOutreach] ✅ SUCCESS: Replied to ${project.symbol}`);
+      console.log(`[PriorityOutreach] ✅ SUCCESS: Replied to ${project.symbol} (Stage: ${engagement.stage})`);
+      console.log(`[PriorityOutreach] 📊 Tweet Stats: ${JSON.stringify(ComplianceTracker.getStats())}`);
+      console.log(`[PriorityOutreach] 📈 Engagement Stats: ${JSON.stringify(ComplianceTracker.getEngagementStats())}`);
       return true;
       
     } catch (error) {
       console.error(`[PriorityOutreach] ❌ Failed:`, error.message);
+      
+      // X COMPLIANT: Record failure
+      ComplianceTracker.recordFailure(error);
+      
       return false;
     }
   }
 
   generateReply(project) {
-    const templates = [
-      `$${project.symbol} looking strong! Love what ${project.name} is building. @SolCex_Exchange provides deep liquidity and zero listing fees for quality projects. DM @dinozzolo 🚀`,
-      `Impressed by $${project.symbol}! ${project.name} has serious potential. @SolCex_Exchange specializes in launching Solana gems to millions of traders. DM @dinozzolo 📈`,
-      `Bullish on $${project.symbol}! The ${project.name} community is absolutely fire. @SolCex_Exchange accelerates growth with 24/7 support. DM @dinozzolo 🔥`,
-      `$${project.symbol} is different. ${project.name} deserves better exchange exposure. @SolCex_Exchange - Where alpha finds liquidity. DM @dinozzolo 💎`,
+    // CONSERVATIVE TEMPLATES - No exchange mentions, no DM requests
+    // These avoid X's spam filters while building organic engagement
+    const safeTemplates = [
+      `Love the innovation from $${project.symbol}! The ${project.name} team is building something special. 💎`,
+      `Bullish on $${project.symbol} - ${project.name} has serious potential in this market. 🚀`,
+      `Impressed by what ${project.name} is building with $${project.symbol}. Quality project! 🔥`,
+      `The $${project.symbol} community is absolutely fire. ${project.name} is onto something big. ⚡`,
+      `${project.name} ($${project.symbol}) has that special sauce. Watching closely! 👀`,
+      `Respect the grind from $${project.symbol}. ${project.name} building through the noise. 💪`,
+      `$${project.symbol} fundamentals looking solid. ${project.name} knows what they are doing. 📊`,
+      `Big fan of what $${project.symbol} is doing. ${project.name} is ahead of the curve. 🎯`,
     ];
     
-    return templates[Math.floor(Math.random() * templates.length)];
+    return safeTemplates[Math.floor(Math.random() * safeTemplates.length)];
   }
 
   generateDMText(project) {
