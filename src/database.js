@@ -46,7 +46,7 @@ import { config } from './config.js';
 
 export const dbQueries = {
   addProject: {
-    run: (name, symbol, mcap, twitter, email, source, volume24h = 0) => {
+    run: (name, symbol, mcap, twitter, email, source, volume24h = 0, telegram = null) => {
       // Check if exists (unique on symbol + source)
       const exists = db.projects.find(p => p.symbol === symbol && p.source === source);
       if (!exists) {
@@ -57,6 +57,7 @@ export const dbQueries = {
           mcap,
           twitter_username: twitter,
           email,
+          telegram,
           source,
           volume_24h: volume24h,
           discovered_at: new Date().toISOString()
@@ -190,6 +191,129 @@ export const dbQueries = {
         project.twitter_username = username;
         save();
       }
+    }
+  },
+
+  // Telegram outreach methods
+  addTelegramField: {
+    run: (projectId, telegramUrl) => {
+      const project = db.projects.find(p => p.id === projectId);
+      if (project) {
+        project.telegram = telegramUrl;
+        project.telegram_stage = 'DISCOVERED';
+        save();
+      }
+    }
+  },
+
+  getProjectsForTelegramOutreach: {
+    all: (limit = 5) => {
+      // Get projects with Telegram that haven't been contacted
+      return db.projects
+        .filter(p => 
+          p.telegram && 
+          (!p.telegram_stage || p.telegram_stage === 'DISCOVERED')
+        )
+        .sort((a, b) => (b.mcap || 0) - (a.mcap || 0))
+        .slice(0, limit);
+    }
+  },
+
+  updateProjectTelegramStage: {
+    run: (projectId, stage) => {
+      const project = db.projects.find(p => p.id === projectId);
+      if (project) {
+        project.telegram_stage = stage;
+        project.telegram_updated_at = new Date().toISOString();
+        save();
+      }
+    }
+  },
+
+  getTelegramJoinsCount: {
+    get: (date) => {
+      if (!db.telegram_joins) return 0;
+      return db.telegram_joins.filter(j => 
+        j.date === date && j.success
+      ).length;
+    }
+  },
+
+  getLastTelegramJoin: {
+    get: () => {
+      if (!db.telegram_joins || db.telegram_joins.length === 0) return null;
+      return db.telegram_joins[db.telegram_joins.length - 1];
+    }
+  },
+
+  logTelegramJoin: {
+    run: (projectId, group, success, error) => {
+      if (!db.telegram_joins) db.telegram_joins = [];
+      
+      db.telegram_joins.push({
+        id: db.telegram_joins.length + 1,
+        project_id: projectId,
+        group,
+        success,
+        error,
+        date: new Date().toISOString().split('T')[0],
+        timestamp: new Date().toISOString()
+      });
+      save();
+    }
+  },
+
+  logTelegramMessage: {
+    run: (projectId, group, message, success) => {
+      if (!db.telegram_messages) db.telegram_messages = [];
+      
+      db.telegram_messages.push({
+        id: db.telegram_messages.length + 1,
+        project_id: projectId,
+        group,
+        message: message.substring(0, 200), // Truncate for storage
+        success,
+        timestamp: new Date().toISOString()
+      });
+      save();
+    }
+  },
+
+  logTelegramResponse: {
+    run: (projectId, message) => {
+      if (!db.telegram_responses) db.telegram_responses = [];
+      
+      db.telegram_responses.push({
+        id: db.telegram_responses.length + 1,
+        project_id: projectId,
+        sender: message.sender,
+        text: message.text,
+        timestamp: new Date().toISOString()
+      });
+      
+      // Update project stage
+      const project = db.projects.find(p => p.id === projectId);
+      if (project) {
+        project.telegram_stage = 'RESPONDED';
+        save();
+      }
+    }
+  },
+
+  getActiveTelegramGroups: {
+    all: () => {
+      if (!db.telegram_joins) return [];
+      
+      // Get unique groups we successfully joined
+      const joinedGroups = new Set();
+      db.telegram_joins.forEach(j => {
+        if (j.success) joinedGroups.add(j.group);
+      });
+      
+      return Array.from(joinedGroups).map(group => ({
+        username: group,
+        projectId: db.telegram_joins.find(j => j.group === group)?.project_id
+      }));
     }
   }
 };
