@@ -1,21 +1,26 @@
 # Dependencies
 node_modules/
 
-# Environment variables
+# Environment files (sensitive)
 .env
 .env.credentials
+*.credentials
 
 # Logs
 *.log
-npm-debug.log*
+toto.log
 
-# Data
-data/
+# Archives and temp
+archive/
 
-# Credentials
-hackathon-credentials.json
-oauth1_tokens.json
+# Data (keep structure, not content)
+data/*.json
+!data/.gitkeep
 
 # OS files
 .DS_Store
 Thumbs.db
+
+# IDE
+.vscode/
+.idea/

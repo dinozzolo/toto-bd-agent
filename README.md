@@ -1,86 +1,123 @@
-# Toto - Solcex Exchange BD Agent
+# 🤖 Toto - AI Business Development Agent
 
-Automated Business Development agent for Solcex Exchange.
+> **The ONLY AI BD Agent That Gets Paid** — Autonomous project discovery, multi-channel outreach, deal closing, and x402 payment collection.
 
-## What It Does
+[![Demo](https://img.shields.io/badge/Demo-Live-brightgreen)](https://dinozzolo.github.io/toto-bd-agent/demo)
+[![Hackathon](https://img.shields.io/badge/Colosseum-Hackathon%202026-purple)](https://arena.colosseum.org/projects/toto-ai-business-development-agent-for-crypto-exchanges)
 
-1. **Project Discovery** - Scans DexScreener, CoinGecko, and CoinMarketCap daily for projects above 400k market cap
-2. **Automated Outreach** - Replies to project tweets and sends emails inviting them to list on Solcex
-3. **Content Posting** - Posts 8 crypto-related tweets per day based on market sentiment
-4. **Team Engagement** - Monitors and engages with Solcex team members' tweets every 30 minutes
-5. **Daily Reporting** - Sends detailed email reports with all contacts and outreach activities
+## 🎯 What is Toto?
 
-## Schedule
+Toto is a fully autonomous Business Development agent that:
 
-- **6:00 AM UTC** - Daily project scan
-- **Every 5 minutes** - Process outreach queue (reply to one project)
-- **Every 3 hours** - Post crypto content (8x per day)
-- **11:00 PM UTC** - Post daily summary tweet
-- **Every 30 minutes** - Check and engage with team tweets
-- **11:30 PM UTC** - Send daily report email to dino@solcex.cc
+1. **Scouts** crypto projects from CoinGecko, CoinMarketCap, and social media
+2. **Qualifies** leads based on market cap, team, and engagement metrics
+3. **Reaches out** via X (Twitter), Email, and Telegram with personalized CTAs
+4. **Closes deals** and collects payment via x402 protocol
+5. **Delivers services** automatically or hands off to humans
 
-## Team Monitored
+## 🚀 Key Features
 
-- @dinozzolo (Dino - Creator, Senior Listing Manager)
-- @Solcex_intern (Colleague, Intern)
-- @arloxshot (Big Boss)
-- @Alexanderbtcc (Boss)
-- @SolCex_Exchange (Company account)
+### Multi-Channel CTA Strategy
+- **X (Twitter)**: Policy-compliant replies with stage-based engagement (Organic → Warm → Pitch)
+- **Email**: 3-stage sequences with auto-discovery of team emails
+- **Telegram**: MTProto integration for direct messaging
 
-## Usage
+### x402 Payment Integration
+- Generate payment requests automatically
+- Support for Base, Ethereum, Polygon, Solana
+- Accept USDC, USDT, ETH, SOL
+- Track revenue and deal analytics
 
-### Start the agent
+### Three Automation Levels
+| Mode | Description | Use Case |
+|------|-------------|----------|
+| 🧑‍💼 Manual | Toto generates proposals, you close deals | "I want control over the final sale" |
+| 🤝 Assisted | Toto drafts everything, you approve | "I want oversight without grunt work" |
+| 🤖 Full Auto | Toto runs the entire pipeline autonomously | "Passive income mode" |
+
+## 📁 Project Structure
+
+```
+toto-bd-agent/
+├── src/                    # Core modules
+│   ├── index.js           # Main entry point
+│   ├── scanner.js         # Project discovery
+│   ├── compliance.js      # X API rate limiting
+│   ├── database.js        # Contact management
+│   ├── x402-payments.js   # Payment processing
+│   ├── bd-deals.js        # Deal management
+│   ├── email-cta.js       # Email campaigns
+│   └── telegram-cta.js    # Telegram outreach
+├── scripts/               # Utility scripts
+├── docs/                  # Strategy documentation
+├── demo/                  # Demo website
+│   └── index.html        # Live demo page
+└── tests/                 # Test files
+```
+
+## 🛠️ Installation
+
 ```bash
-cd bd-agent
+# Clone the repository
+git clone https://github.com/dinozzolo/toto-bd-agent.git
+cd toto-bd-agent
+
+# Install dependencies
+npm install
+
+# Configure credentials
+cp .env.example .env.credentials
+# Edit .env.credentials with your API keys
+
+# Start the agent
 npm start
 ```
 
-### Manual operations
-```bash
-# Run scanner manually
-npm run scanner
+## ⚙️ Configuration
 
-# Process outreach queue manually
-npm run outreach
+Create `.env.credentials` with:
 
-# Post crypto content manually
-npm run poster
+```env
+# X (Twitter) API
+TWITTER_API_KEY=your_key
+TWITTER_API_SECRET=your_secret
+TWITTER_ACCESS_TOKEN=your_token
+TWITTER_ACCESS_SECRET=your_secret
 
-# Engage with team manually
-npm run team-engage
+# Telegram (optional)
+TELEGRAM_API_ID=your_id
+TELEGRAM_API_HASH=your_hash
+TELEGRAM_PHONE=your_phone
 
-# Send report manually
-npm run report
+# Email (optional)
+EMAIL_HOST=smtp.example.com
+EMAIL_USER=your_email
+EMAIL_PASS=your_password
 ```
 
-## Database
+## 📊 Service Tiers
 
-All contacts are stored in `data/contacts.db` (SQLite).
+| Package | Price | Includes |
+|---------|-------|----------|
+| Basic Listing | $5,000 | Exchange submission, social announcement |
+| Premium Listing | $15,000 | Priority submission, 3-5 KOL intros, PR |
+| Enterprise | $50,000 | White-glove service, 10+ KOLs, market making |
+| Marketing Basic | $3,000 | Twitter campaign, community engagement |
+| Marketing Premium | $10,000 | Full campaign, 5-8 KOL partnerships |
+| Consultation | $500 | 1-hour strategy call, custom roadmap |
 
-Tables:
-- `projects` - Discovered crypto projects
-- `outreach` - Log of all outreach activities
-- `posts` - Log of all tweets posted
-- `team_engagement` - Log of team tweet engagement
+## 🔗 Links
 
-## Configuration
+- **Live Demo**: [dinozzolo.github.io/toto-bd-agent/demo](https://dinozzolo.github.io/toto-bd-agent/demo)
+- **Hackathon**: [Colosseum Arena](https://arena.colosseum.org/projects/toto-ai-business-development-agent-for-crypto-exchanges)
+- **Solcex Exchange**: [solcex.cc](https://solcex.cc)
+- **Twitter**: [@theprincetoto](https://x.com/theprincetoto)
 
-Edit `.env.credentials` in the workspace root to update:
-- Twitter API credentials
-- Email SMTP settings
-- Minimum market cap threshold
-- Reply intervals
-- Team members to monitor
+## 👨‍💻 Author
 
-## Safety Features
+**Dino** ([@dinozzolo](https://x.com/dinozzolo))  
+Senior Listing Manager at Solcex Exchange
 
-- Avoids accounts with 500k+ followers to prevent spam flags
-- Human-like reply intervals (not strict timing)
-- Contextual replies based on tweet content
-- No emojis in replies to avoid spam detection
-- Tags projects and uses $TOKEN symbols appropriately
+---
 
-## Created By
-
-Dino (@dinozzolo) - Senior Listing Manager, Solcex Exchange
-Agent Identity: Toto (@theprincetoto)
+Built for **Colosseum Agent Hackathon 2026** 🏆
