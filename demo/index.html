@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toto - AI Business Development Agent for Crypto Exchanges</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        header { text-align: center; padding: 60px 0; }
+        h1 { font-size: 3.5em; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .tagline { font-size: 1.5em; opacity: 0.9; margin-bottom: 40px; }
+        .cta-button {
+            display: inline-block;
+            background: #00d4aa;
+            color: #1a1a2e;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,212,170,0.4); }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin: 60px 0; }
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .stat-number { font-size: 2.5em; font-weight: bold; color: #00d4aa; }
+        .stat-label { font-size: 0.9em; opacity: 0.8; margin-top: 10px; }
+        .features { margin: 60px 0; }
+        .features h2 { text-align: center; font-size: 2.5em; margin-bottom: 40px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .feature-card {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .feature-icon { font-size: 2.5em; margin-bottom: 15px; }
+        .feature-card h3 { font-size: 1.3em; margin-bottom: 10px; }
+        .feature-card p { opacity: 0.8; line-height: 1.6; }
+        .pipeline { margin: 60px 0; text-align: center; }
+        .pipeline h2 { font-size: 2.5em; margin-bottom: 40px; }
+        .pipeline-steps { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
+        .step {
+            background: rgba(255,255,255,0.1);
+            padding: 20px 30px;
+            border-radius: 50px;
+            border: 2px solid #00d4aa;
+            font-weight: bold;
+        }
+        .demo-section { margin: 60px 0; text-align: center; }
+        .demo-section h2 { font-size: 2.5em; margin-bottom: 30px; }
+        .demo-box {
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+            font-family: 'Courier New', monospace;
+        }
+        .demo-line { margin: 10px 0; opacity: 0.9; }
+        .demo-line.success { color: #00d4aa; }
+        .demo-line.info { color: #ffd700; }
+        .demo-line.action { color: #ff6b6b; }
+        .links { text-align: center; margin: 60px 0; }
+        .links a {
+            color: #00d4aa;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: bold;
+        }
+        .links a:hover { text-decoration: underline; }
+        footer { text-align: center; padding: 40px 0; opacity: 0.6; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Toto</h1>
+            <p class="tagline">AI Business Development Agent for Crypto Exchanges</p>
+            <p style="opacity: 0.8; margin-bottom: 30px;">Autonomous outreach. Real results. Built for Solana.</p>
+            <a href="https://github.com/dinozzolo/toto-bd-agent" class="cta-button">View on GitHub</a>
+        </header>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Autonomous Operation</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Automated Pipeline</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">SPL</div>
+                <div class="stat-label">Solana Token Focus</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">AI</div>
+                <div class="stat-label">Powered Outreach</div>
+            </div>
+        </div>
+
+        <div class="features">
+            <h2>What Toto Does</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Project Discovery</h3>
+                    <p>Automatically scans CoinGecko and CoinMarketCap hourly for new crypto listings, identifying promising projects before they get crowded.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Research</h3>
+                    <p>Analyzes token fundamentals, team credibility, social sentiment, and GitHub activity to filter quality projects from scams.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Smart Outreach</h3>
+                    <p>Finds accurate Twitter handles via AI search, crafts personalized DMs, and initiates professional conversations at scale.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Pipeline Management</h3>
+                    <p>Tracks every contact, response rate, and conversion. Learns from successful outreach to continuously improve messaging.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Solana Native</h3>
+                    <p>Prioritizes SPL tokens and Solana projects. Validates on-chain metadata and contract addresses for legitimacy.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Continuous Learning</h3>
+                    <p>Every interaction improves future outreach. The agent gets smarter about what works and what doesn't.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="pipeline">
+            <h2>The BD Pipeline</h2>
+            <div class="pipeline-steps">
+                <div class="step">1. Scan</div>
+                <div class="step">2. Research</div>
+                <div class="step">3. Verify</div>
+                <div class="step">4. Outreach</div>
+                <div class="step">5. Track</div>
+                <div class="step">6. Convert</div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>Live Demo</h2>
+            <div class="demo-box">
+                <div class="demo-line info">[Toto] Starting daily scan...</div>
+                <div class="demo-line">[Scanner] Found 47 new tokens on CoinGecko</div>
+                <div class="demo-line">[Research] Analyzing token metrics...</div>
+                <div class="demo-line success">[Research] 12 projects passed quality filter</div>
+                <div class="demo-line">[Twitter] Searching for project handles...</div>
+                <div class="demo-line success">[Twitter] Found 8 verified team accounts</div>
+                <div class="demo-line action">[Outreach] Sending personalized DMs...</div>
+                <div class="demo-line success">[Outreach] 5 messages sent successfully</div>
+                <div class="demo-line info">[Database] Pipeline updated. 3 new leads added.</div>
+                <div class="demo-line">[Cron] Next scan scheduled in 60 minutes</div>
+                <div class="demo-line info">[Toto] Going to sleep. See you in an hour.</div>
+            </div>
+        </div>
+
+        <div class="links">
+            <a href="https://github.com/dinozzolo/toto-bd-agent">GitHub Repository</a>
+            <a href="https://colosseum.com/agent-hackathon/projects/toto-ai-business-development-agent-for-crypto-exchanges">Hackathon Project</a>
+            <a href="https://solcex.cc">Solcex Exchange</a>
+        </div>
+
+        <footer>
+            <p>Built for Colosseum Agent Hackathon 2026 | Toto - AI BD Agent for Crypto Exchanges</p>
+            <p style="margin-top: 10px;">Created by Dino (@dinozzolo) | Senior Listing Manager at Solcex</p>
+        </footer>
+    </div>
+</body>
+</html>
