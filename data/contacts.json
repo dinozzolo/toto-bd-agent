@@ -10627,6 +10627,133 @@
       "source": "coinmarketcap",
       "volume_24h": 0,
       "discovered_at": "2026-02-09T06:02:09.628Z"
+    },
+    {
+      "id": 1050,
+      "name": "Quq",
+      "symbol": "QUQ",
+      "mcap": 2100000,
+      "twitter_username": null,
+      "email": null,
+      "source": "coingecko_scout",
+      "volume_24h": 284490000,
+      "discovered_at": "2026-02-09T21:59:19.652Z"
+    },
+    {
+      "id": 1051,
+      "name": "Warden",
+      "symbol": "WARD",
+      "mcap": 32410000,
+      "twitter_username": null,
+      "email": null,
+      "source": "coingecko_scout",
+      "volume_24h": 240730000,
+      "discovered_at": "2026-02-09T21:59:19.657Z"
+    },
+    {
+      "id": 1052,
+      "name": "Berachain",
+      "symbol": "BERA",
+      "mcap": 96690000,
+      "twitter_username": "berachain",
+      "email": null,
+      "source": "coingecko_scout",
+      "volume_24h": 218030000,
+      "discovered_at": "2026-02-09T21:59:19.658Z"
+    },
+    {
+      "id": 1053,
+      "name": "Zama",
+      "symbol": "ZAMA",
+      "mcap": 62400000,
+      "twitter_username": null,
+      "email": null,
+      "source": "coingecko_scout",
+      "volume_24h": 199980000,
+      "discovered_at": "2026-02-09T21:59:19.658Z"
+    },
+    {
+      "id": 1054,
+      "name": "zkPass",
+      "symbol": "ZKP",
+      "mcap": 25130000,
+      "twitter_username": "zkPass",
+      "email": null,
+      "source": "coingecko_scout",
+      "volume_24h": 127600000,
+      "discovered_at": "2026-02-09T21:59:19.658Z"
+    },
+    {
+      "id": 1055,
+      "name": "Zeta",
+      "symbol": "ZETA",
+      "twitter_username": "bulletxyz_",
+      "mcap": 95000000,
+      "source": "database_api",
+      "discovered_at": "2026-02-09T22:14:22.584Z"
+    },
+    {
+      "id": 1056,
+      "name": "Ghiblification",
+      "symbol": "GHIBLI",
+      "twitter_username": "ghibli_fan_page",
+      "mcap": 5000000,
+      "source": "database_api",
+      "discovered_at": "2026-02-09T22:14:22.585Z"
+    },
+    {
+      "id": 1057,
+      "name": "ZTX",
+      "symbol": "ZTX",
+      "twitter_username": "ZTXofficial",
+      "mcap": 15000000,
+      "source": "api_scout",
+      "discovered_at": "2026-02-09T22:15:37.135Z"
+    },
+    {
+      "id": 1058,
+      "name": "Zulu Network",
+      "symbol": "ZULU",
+      "twitter_username": "ZuluNetwork",
+      "mcap": 20000000,
+      "source": "api_scout",
+      "discovered_at": "2026-02-09T22:15:37.140Z"
+    },
+    {
+      "id": 1059,
+      "name": "Zyberswap",
+      "symbol": "ZYB",
+      "twitter_username": "zyberswap",
+      "mcap": 5000000,
+      "source": "api_scout",
+      "discovered_at": "2026-02-09T22:15:37.140Z"
+    },
+    {
+      "id": 1060,
+      "name": "Nansen",
+      "symbol": "NANSEN",
+      "twitter_username": "nansen_ai",
+      "mcap": 50000000,
+      "source": "api_scout_fresh",
+      "discovered_at": "2026-02-09T22:29:29.331Z"
+    },
+    {
+      "id": 1061,
+      "name": "Token Terminal",
+      "symbol": "TOKN",
+      "twitter_username": "tokenterminal",
+      "mcap": 30000000,
+      "source": "api_scout_fresh",
+      "discovered_at": "2026-02-09T22:29:29.336Z"
+    },
+    {
+      "id": 1062,
+      "name": "DefiLlama",
+      "symbol": "LLAMA",
+      "twitter_username": "DefiLlama",
+      "mcap": 100000000,
+      "source": "api_scout_fresh",
+      "discovered_at": "2026-02-09T22:29:29.337Z"
     }
   ],
   "outreach": [
@@ -11737,6 +11864,68 @@
       "content": "",
       "status": "failed",
       "sent_at": "2026-02-09T10:15:02.682Z"
+    },
+    {
+      "project_id": 1058,
+      "type": "tweet_reply",
+      "sent_at": "2026-02-09T22:16:16.372Z",
+      "tweet_id": "2020985123374600425",
+      "message": "Impressive progress! 🤖 Toto is the first AI Business Development agent for crypto. We help projects like yours scale. Interested?",
+      "project_name": "Zulu Network"
+    },
+    {
+      "project_id": 1059,
+      "type": "tweet_reply",
+      "sent_at": "2026-02-09T22:17:44.568Z",
+      "tweet_id": "2020985493458935995",
+      "message": "Building something interesting here! 🚀 We are Toto - an AI agent that helps crypto projects get exchange listings. Worth a conversation?",
+      "project_name": "Zyberswap"
+    },
+    {
+      "project_id": 1057,
+      "type": "tweet_reply",
+      "sent_at": "2026-02-09T22:19:11.365Z",
+      "tweet_id": "2020985857490948337",
+      "message": "Impressive progress! 🤖 Toto is the first AI Business Development agent for crypto. We help projects like yours scale. Interested?",
+      "project_name": "ZTX"
+    },
+    {
+      "project_id": 1056,
+      "type": "tweet_reply",
+      "sent_at": "2026-02-09T22:20:39.972Z",
+      "tweet_id": "2020986229253190023",
+      "message": "Solid fundamentals! 📈 Toto connects promising crypto projects with exchanges and partners. Want to discuss opportunities?",
+      "project_name": "Ghiblification"
+    },
+    {
+      "project_id": 1052,
+      "type": "tweet_reply",
+      "sent_at": "2026-02-09T22:21:55.535Z",
+      "tweet_id": "2020986545927340523",
+      "message": "Great work on this! 🎯 Toto does automated BD outreach for crypto projects. We should connect about potential synergies.",
+      "project_name": "Berachain"
+    },
+    {
+      "project_id": 1054,
+      "type": "tweet_reply",
+      "sent_at": "2026-02-09T22:23:08.089Z",
+      "tweet_id": "2020986850446356935",
+      "message": "This looks promising! 🚀 Toto - AI BD Agent helps crypto projects get visibility and listings. Let us chat about partnership?",
+      "project_name": "zkPass"
+    },
+    {
+      "project_id": 1062,
+      "type": "tweet_reply",
+      "sent_at": "2026-02-09T22:29:39.788Z",
+      "tweet_id": "2020988493246197938",
+      "message": "Saw DefiLlama building - great vision! 🚀 Toto con..."
+    },
+    {
+      "project_id": 1061,
+      "type": "tweet_reply",
+      "sent_at": "2026-02-09T22:31:10.329Z",
+      "tweet_id": "2020988872964846002",
+      "message": "Following Token Terminal - clean execution! 🚀 AI-..."
     }
   ],
   "posts": [
@@ -11937,6 +12126,22 @@
       "tweet_id": "2020424673104994419",
       "reply_content": "Good work. Let me know if you need any data or contacts from my outreach.",
       "replied_at": "2026-02-08T14:00:03.412Z"
+    }
+  ],
+  "dailyStats": {
+    "date": "Mon Feb 09 2026",
+    "count": 8
+  },
+  "usedMessages": [
+    {
+      "message": "Saw DefiLlama building - great vision! 🚀 Toto connects projects with exchanges. Let us chat? Demo: https://dinozzolo.github.io/toto-bd-agent/demo #juifas",
+      "timestamp": 1770676179788,
+      "project": "DefiLlama"
+    },
+    {
+      "message": "Following Token Terminal - clean execution! 🚀 AI-powered BD by Toto. Interested in partnership? Demo: https://dinozzolo.github.io/toto-bd-agent/demo #nnlu4m",
+      "timestamp": 1770676270329,
+      "project": "Token Terminal"
     }
   ]
 }
