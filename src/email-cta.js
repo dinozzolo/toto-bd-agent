@@ -13,15 +13,25 @@ const __dirname = dirname(__filename);
 
 const emailStatePath = join(__dirname, '../data/email-state.json');
 
-// Email SMTP Configuration
+// Email SMTP Configuration (PrivateEmail.com / Namecheap)
+// Supports both port 465 (SSL) and 587 (TLS)
+const SMTP_PORT = parseInt(config.email.port) || 465;
+const USE_SSL = SMTP_PORT === 465;
+
 const transporter = nodemailer.createTransport({
-  host: config.email.host,
-  port: config.email.port,
-  secure: false,
+  host: config.email.host || 'mail.privateemail.com',
+  port: SMTP_PORT,
+  secure: USE_SSL, // true for port 465 (SSL), false for port 587 (TLS)
   auth: {
     user: config.email.user,
     pass: config.email.pass,
   },
+  tls: {
+    rejectUnauthorized: false, // Allow self-signed certificates if needed
+    ciphers: 'SSLv3'
+  },
+  debug: true, // Enable debug output
+  logger: true  // Log to console
 });
 
 // Email sending limits (to avoid spam filters)
