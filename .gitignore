@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.credentials
+
+# Logs
+*.log
+npm-debug.log*
+
+# Data
+data/
+
+# Credentials
+hackathon-credentials.json
+oauth1_tokens.json
+
+# OS files
+.DS_Store
+Thumbs.db

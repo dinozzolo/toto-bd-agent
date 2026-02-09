@@ -51,8 +51,8 @@ const scanJob = new cron.CronJob('0 6 * * *', async () => {
   console.log('[Cron] Daily scan complete!');
 });
 
-// Priority outreach - every 10 minutes (hot projects first)
-const priorityOutreachJob = new cron.CronJob(`*/10 * * * *`, async () => {
+// Priority outreach - every 20 minutes (hot projects first)
+const priorityOutreachJob = new cron.CronJob(`*/20 * * * *`, async () => {
   try {
     console.log('[Cron] Processing priority outreach (hot projects)...');
     await priorityOutreach.processPriorityQueue();
@@ -137,7 +137,8 @@ timelineJob.start();
 console.log('✅ All cron jobs started');
 console.log('📅 Daily scan: 6 AM UTC (DexScreener + CoinGecko + Exchanges)');
 console.log('📧 Email scraping: 7 AM UTC');
-console.log('📢 Outreach: Every 15 minutes (NO DUPLICATES)');
+console.log('📢 Priority Outreach: Every 20 minutes from database');
+console.log('📢 Regular Outreach: Every 15 minutes (NO DUPLICATES)');
 console.log('📱 Posts: Every 3 hours (8/day)');
 console.log('📊 Summary: 11 PM UTC');
 console.log('👥 Team check: 3x daily (8 AM, 2 PM, 8 PM UTC)');
